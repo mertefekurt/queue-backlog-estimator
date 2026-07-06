@@ -1,71 +1,46 @@
-# queue-backlog-estimator
+# Queue Backlog Estimator
 
-`queue-backlog-estimator` is a small local CLI that review queue workload plans for backlog and worker-capacity risk.
+<p align="center">
+  <img src="assets/readme-cover.svg" alt="Queue Backlog Estimator cover" width="100%" />
+</p>
 
-## Why it is useful
+![stack](https://img.shields.io/badge/stack-Python-4b5563?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-2563eb?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-dc2626?style=flat-square)
 
-Async systems fail quietly when arrival rate exceeds worker capacity. This CLI flags queue plans with weak capacity assumptions.
+Review queue workload plans for backlog and worker-capacity risk.
 
-## Key features
+## The short version
 
-- reads text, JSON, JSONL, or CSV inputs
-- returns Markdown or JSON reports
-- supports severity-based CI exit codes
-- keeps all checks deterministic and offline
-- includes focused rules for this project:
-- `capacity-below-arrival`: worker capacity appears below arrival rate
-- `missing-backlog-limit`: backlog limit is missing
-- `missing-dlq`: dead-letter queue is missing
+`queue-backlog-estimator` is intentionally small: feed it a file, get deterministic findings, and decide whether the result should block a merge or just guide cleanup.
 
-## Installation
+## Rule surface
 
-```bash
-python -m pip install -e ".[dev]"
-```
+| Rule | Severity | What it catches |
+| --- | --- | --- |
+| `capacity-below-arrival` | high | worker capacity appears below arrival rate |
+| `missing-backlog-limit` | medium | backlog limit is missing |
+| `missing-dlq` | low | dead-letter queue is missing |
 
 ## Usage
 
 ```bash
+python -m pip install -e ".[dev]"
 queue-backlog-estimator examples/sample.txt
-queue-backlog-estimator examples/sample.txt --json
-queue-backlog-estimator path/to/input.txt --fail-on medium --out report.md
-python -m queue_backlog_estimator --help
+queue-backlog-estimator examples/sample.txt --json --fail-on medium
 ```
 
-Example input:
+## Useful defaults
 
-```text
-arrival_rate: 500/min worker_capacity: 100/min max_backlog: unknown dlq: none
-```
+| Option | Reason |
+| --- | --- |
+| `--json` | machine-readable output for scripts |
+| `--fail-on medium` | stricter CI gate when warnings matter |
+| `--format auto` | let the reader detect text, CSV, JSON, or JSONL |
 
-## CLI options
-
-```text
-queue-backlog-estimator INPUT [--format auto|text|jsonl|csv|json] [--json]
-             [--fail-on low|medium|high] [--out PATH]
-```
-
-`INPUT` is any queue workload plan or incident notes. The tool exits with code `2` when findings meet the selected
-threshold, which makes it easy to use in GitHub Actions or release checks.
-
-## Workflow
-
-```mermaid
-flowchart LR
-    A[input file] --> B[format reader]
-    B --> C[project-specific rules]
-    C --> D[risk score]
-    D --> E[Markdown or JSON report]
-```
-
-## Tests
+## Local checks
 
 ```bash
+python -m pip install -e ".[dev]"
 ruff check .
 pytest
 python -m queue_backlog_estimator --help
 ```
-
-## License
-
-MIT
