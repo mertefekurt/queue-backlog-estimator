@@ -1,9 +1,31 @@
 <svg width="1280" height="420" viewBox="0 0 1280 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Queue Backlog Estimator cover">
-  <rect width="1280" height="420" rx="28" fill="#18122b"/>
 
-  <path d="M92 96h190v228H92zM330 96h858" stroke="#7c3aed" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M132 152h110M132 206h78M132 260h132" stroke="#faf5ff" stroke-width="14" stroke-linecap="round" opacity=".78"/>
-  <text x="330" y="192" fill="#faf5ff" font-family="Plus Jakarta Sans, ui-sans-serif, system-ui" font-size="45" font-weight="850">Queue Backlog Estimator</text>
-  <text x="334" y="252" fill="#e9d5ff" font-family="Plus Jakarta Sans, ui-sans-serif, system-ui" font-size="24">Focused CLI for queue operations</text>
-  <text x="334" y="304" fill="#ec4899" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">DELIVERY AND INFRASTRUCTURE</text>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity=".34"/>
+      <stop offset=".54" stop-color="#0b1020" stop-opacity="0"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity=".30"/>
+    </linearGradient>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="16" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .10"/></feComponentTransfer>
+      <feBlend mode="soft-light" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="420" rx="30" fill="#0b1020"/>
+  <rect width="1280" height="420" rx="30" fill="url(#g)" filter="url(#grain)"/>
+
+  <circle cx="1044" cy="182" r="178" fill="#3b82f6" opacity=".14"/>
+  <circle cx="1138" cy="286" r="92" fill="#22d3ee" opacity=".18"/>
+  <rect x="86" y="86" width="560" height="248" rx="26" fill="#0b1020" opacity=".68" stroke="#3b82f6" stroke-width="4"/>
+  <text x="124" y="178" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui" font-size="48" font-weight="850">Queue Backlog Estimator</text>
+  <text x="128" y="234" fill="#c7d2fe" font-family="Inter, ui-sans-serif, system-ui" font-size="23">Review queue workload plans for backlog and...</text>
+  <text x="128" y="292" fill="#22d3ee" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="800">DELIVERY</text>
+  <rect x="846" y="122" width="184" height="28" rx="8" fill="#3b82f6" opacity=".85"/>
+  <text x="862" y="141" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">capacity-below-arrival</text>
+  <rect x="846" y="176" width="244" height="28" rx="8" fill="#22d3ee" opacity=".85"/>
+  <text x="862" y="195" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">missing-backlog-limit</text>
+  <rect x="846" y="230" width="268" height="28" rx="8" fill="#3b82f6" opacity=".85"/>
+  <text x="862" y="249" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">missing-dlq</text>
 </svg>
